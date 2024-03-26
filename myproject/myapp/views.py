@@ -60,7 +60,7 @@ def video_list(request ):
             saved_video = form.save()  # Save the uploaded video
             directory_saved_video = os.path.dirname(saved_video.video.path)
             global time_points
-            time_points = prediction(directory_saved_video)
+            time_points, start_frame = prediction(directory_saved_video)
             
             # form.save()
             # saved_video=form.save()

@@ -176,18 +176,20 @@ def prediction(root):
 
     timepoints=[]
     start=0
+    start_frame=[0]
     for i in range(len(ans_list)):
         if i!=0 and ans_list[i-1]!=ans_list[i]:
             timepoints.append((switcher.get(ans_list[i-1]),start,round(float((i*35+1)/30))))
+            start_frame.append(i)
             start=round(float((i*35+1)/30))
             
-    print(ans_list[-1])
     timepoints.append((switcher.get(ans_list[-1]),start,round(float(((len(ans_list)-1)*35+1)/30))))
 
     # print(ans_list)
     # print(time)
     print(timepoints)
-    return timepoints
+    
+    return timepoints, start_frame
     
 
 
