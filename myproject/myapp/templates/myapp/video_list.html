@@ -31,9 +31,14 @@
                 </video>
             </div>
             <div class="controls-section">
+                <h2>{{video.id}}</h2>
                 <form action="{% url 'delete_video' video.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <form action="{% url 'save_video' video.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Save</button>
                 </form>
                     {% for label, start_time, end_time in time_points %}
                     <a href="#" class="time-link" data-video-id="video_{{ video.id }}" data-start-time="{{ start_time }}" data-end-time="{{ end_time }}">{{ label }}</a>

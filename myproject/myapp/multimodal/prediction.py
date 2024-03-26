@@ -175,21 +175,37 @@ def prediction(root):
     }
 
     timepoints=[]
+    pred={}
     start=0
-    start_frame=[0]
+    start_frame=1
     for i in range(len(ans_list)):
         if i!=0 and ans_list[i-1]!=ans_list[i]:
             timepoints.append((switcher.get(ans_list[i-1]),start,round(float((i*35+1)/30))))
-            start_frame.append(i)
+            pred[start_frame]=switcher.get(ans_list[i-1])
+            start_frame=i*35+1
             start=round(float((i*35+1)/30))
             
     timepoints.append((switcher.get(ans_list[-1]),start,round(float(((len(ans_list)-1)*35+1)/30))))
-
-    # print(ans_list)
-    # print(time)
+    pred[start_frame]=switcher.get(ans_list[-1])
+    print(pred)
     print(timepoints)
+    print("sdsds")
+    import os
+
+# Set the path to your folder
+    folder_path = root
+
+    # List all files and directories in the folder
+    for filename in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, filename)
+        # Check if it's a file (ignoring directories)
+        if os.path.isfile(file_path):
+            # Check if the file does NOT end with .mp4
+            if not filename.endswith('.mp4'):
+                os.remove(file_path)
+                print(f"Deleted {file_path}")
     
-    return timepoints, start_frame
+    return timepoints, pred
     
 
 

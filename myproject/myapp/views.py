@@ -8,9 +8,11 @@ from .supabase_client import supabase
 from .forms import VideoForm
 from .models import Video
 from .multimodal.prediction import prediction
+from .functions.download_preporations import add_predictions_to_video
 
 
 time_points = []
+pred ={}
 
 def login_view(request):
     if request.method == 'POST':
@@ -59,8 +61,8 @@ def video_list(request ):
         if form.is_valid():
             saved_video = form.save()  # Save the uploaded video
             directory_saved_video = os.path.dirname(saved_video.video.path)
-            global time_points
-            time_points, start_frame = prediction(directory_saved_video)
+            global time_points, pred
+            time_points, pred = prediction(directory_saved_video)
             
             # form.save()
             # saved_video=form.save()
@@ -74,7 +76,7 @@ def video_list(request ):
     #time_points = [('Intro', 10, 15), ('Middle', 30, 40), ('End', 45, 47)]
     #time_points = [('Angry', 0, 1), ('Disgust', 1, 19), ('Happy', 19, 20), ('Disgust', 20, 43), ('Angry', 43, 44), ('Disgust', 44, 49), ('Angry', 49, 51), ('Happy', 51, 54), ('Disgust', 54, 55), ('Angry', 55, 55)]
     videos_exist = videos.exists()
-    return render(request, 'myapp/video_list.html', {'videos': videos, 'time_points': time_points, 'form': form, 'videos_exist': videos_exist})
+    return render(request, 'myapp/video_list.html', {'videos': videos, 'time_points': time_points, 'form': form, 'videos_exist': videos_exist, 'pred': pred})
 
 
 
@@ -82,4 +84,10 @@ def delete_video(request, video_id):
     if request.method == 'POST':  # Ensure the request method is POST
         video = Video.objects.get(id=video_id)  # Get the video to delete
         video.delete()  # Delete the video
+        return redirect('video_list')  # Redirect to the video list page
+    
+def save_video(request, video_id):
+    if request.method == 'POST':  # Ensure the request method is POST
+        video = Video.objects.get(id=video_id)  # Get the video to delete
+        add_predictions_to_video(video_path=video.video.path, predictions=pred, output_path="C:/Users/zhk27/OneDrive/Рабочий стол/last_site/emotion_rec/myproject/media/output/new.mp4")
         return redirect('video_list')  # Redirect to the video list page

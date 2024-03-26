@@ -15,6 +15,7 @@ class Video(models.Model):
         # Here we are using the 'path' attribute of the FileField
         storage, path = self.video.storage, self.video.path
         # Delete the model before the file
+        print(path)
         super().delete(*args, **kwargs)
         # Delete the file after the model
         storage.delete(path)
