@@ -13,7 +13,7 @@ class Opts:
         self.n_classes = 8
         self.model = 'multimodalcnn'
         self.num_heads = 1
-        self.device = 'cuda'
+        self.device = 'cpu'
         self.sample_size = 224
         self.sample_duration = 15
         self.learning_rate = 0.04

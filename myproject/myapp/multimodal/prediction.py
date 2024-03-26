@@ -124,7 +124,7 @@ def prediction(root):
     model = model.to(opt.device)
     model = nn.DataParallel(model, device_ids=None)
     #model.load_state_dict(torch.load('d:/RAVDESS/RAVDESS_multimodalcnn_15_best0.pth'))
-    best_state = torch.load('RAVDESS_multimodalcnn_15_checkpoint0.pth')
+    best_state = torch.load('RAVDESS_multimodalcnn_15_checkpoint0.pth', map_location=torch. device ('cpu'))
     model.load_state_dict(best_state['state_dict'])
     model.eval()
 

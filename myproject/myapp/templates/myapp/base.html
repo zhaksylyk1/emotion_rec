@@ -83,7 +83,7 @@
             justify-content: start;
         }
         .video-js {
-            width: 100%;
+            width: 1000px;
             height: auto;
         }
 
@@ -101,8 +101,18 @@
         .btn {
             width: 100%; /* Make buttons full width of their container */
             box-sizing: border-box; /* Ensure padding is included in width */
+            font-size: 1.5rem; /* Increase font size for larger buttons */
+            padding: 15px 30px; /* Increase padding for larger buttons */
+            margin-top: 10px; /* Add some space between buttons */
         }
         
+        .btn-group {
+            display: flex;
+            justify-content: center; /* Center the buttons horizontally */
+            align-items: center; /* Align the buttons vertically */
+            gap: 10px; /* Add some space between buttons */
+        }
+
         /* Style for the filename text when a file is chosen */
         .filename-chosen {
             display: inline-block;

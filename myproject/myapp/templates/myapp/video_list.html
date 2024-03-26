@@ -31,15 +31,17 @@
                 </video>
             </div>
             <div class="controls-section">
-                <h2>{{video.id}}</h2>
-                <form action="{% url 'delete_video' video.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                <form action="{% url 'save_video' video.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Save</button>
-                </form>
+                {% comment %} <h2>{{video.id}}</h2> {% endcomment %}
+                <div class="btn-group"> 
+                    <form action="{% url 'delete_video' video.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <form action="{% url 'save_video' video.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </form>
+                </div>
                     {% for label, start_time, end_time in time_points %}
                     <a href="#" class="time-link" data-video-id="video_{{ video.id }}" data-start-time="{{ start_time }}" data-end-time="{{ end_time }}">{{ label }}</a>
                     {% endfor %}
@@ -52,7 +54,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         const timeLinks = document.querySelectorAll('.time-link');
-        timeLinks.forEach(function(link) {
+        timeLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const videoId = this.getAttribute('data-video-id');
@@ -72,9 +74,6 @@
     
                 // Remove any existing timeupdate listeners to avoid duplicates
                 video.removeEventListener('timeupdate', stopVideoAtEndTime);
-                
-                // Add a new timeupdate listener
-                video.addEventListener('timeupdate', stopVideoAtEndTime);
             });
         });
     });
