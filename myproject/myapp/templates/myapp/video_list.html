@@ -2,42 +2,49 @@
 
 {% block content %}
 
-
-{% if not videos_exist %}
-    <h2>Upload Video</h2>
-    <form method="post" enctype="multipart/form-data">
+<div class="upload-container">
+    {% if not videos_exist %}
+    <form method="post" enctype="multipart/form-data" class="upload-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-group">
+            <input type="text" name="title" class="form-control" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="video" class="upload-label">
+                <span>Choose a file</span>
+                <input type="file" name="video" id="video" class="form-control-file" hidden>
+            </label>
+        </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
-{% else %}
-<h2>Prediction</h2>
-    {% for video in videos %}
-        <div class="video-flex-container">
-            <div class="video-section">
-                <video id="video_{{ video.id }}" class="video-js" controls="controls" preload="auto" width="960" height="640" data-setup="{}">
-                    <source src="{{ video.video.url }}" type="video/mp4">
-                    <source src="MY_VIDEO.webm" type="video/webm" />
-                    <p class="vjs-no-js">
-                        {% comment %} To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that {% endcomment %}
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                    </p>
-                </video>
-            </div>
-            <div class="controls-section">
-                <form action="{% url 'delete_video' video.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-                    {% for label, start_time, end_time in time_points %}
-                    <a href="#" class="time-link" data-video-id="video_{{ video.id }}" data-start-time="{{ start_time }}" data-end-time="{{ end_time }}">{{ label }}</a>
-                    {% endfor %}
+    {% else %}
+    <h2>Prediction</h2>
+        {% for video in videos %}
+            <div class="video-flex-container">
+                <div class="video-section">
+                    <video id="video_{{ video.id }}" class="video-js" controls="controls" preload="auto" width="960" height="640" data-setup="{}">
+                        <source src="{{ video.video.url }}" type="video/mp4">
+                        <source src="MY_VIDEO.webm" type="video/webm" />
+                        <p class="vjs-no-js">
+                            {% comment %} To view this video please enable JavaScript, and consider upgrading to a
+                            web browser that {% endcomment %}
+                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                    </video>
                 </div>
-            </div>   
-    {% endfor %}
-{% endif %}
-
+                <div class="controls-section">
+                    <form action="{% url 'delete_video' video.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                        {% for label, start_time, end_time in time_points %}
+                        <a href="#" class="time-link" data-video-id="video_{{ video.id }}" data-start-time="{{ start_time }}" data-end-time="{{ end_time }}">{{ label }}</a>
+                        {% endfor %}
+                    </div>
+                </div>   
+        {% endfor %}
+    {% endif %}
+</div>
 {% comment %} <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script> {% endcomment %}
 
 <script>
@@ -71,4 +78,19 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoInput = document.querySelector('input[type="file"]');
+        const label = document.querySelector('.upload-label');
+        const labelSpan = document.querySelector('.upload-label span');
+        const fileNameDisplay = document.createElement('span'); // Create a new span for the file name
+    
+        videoInput.addEventListener('change', function() {
+            const fileName = videoInput.files[0].name;
+            fileNameDisplay.textContent = fileName ? fileName : "Choose a file";
+            fileNameDisplay.className = 'filename-chosen';
+            label.replaceWith(fileNameDisplay); // Replace the label with the new span
+        });
+    });
+</script>
 {% endblock %}

@@ -12,6 +12,59 @@
     {% comment %} {% load static %} {% endcomment %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <style>
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        body {
+            display: flex;
+            align-items: center; /* Align vertically */
+            justify-content: center; /* Align horizontally */
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%; /* Use 100% of the flex container (body) */
+            max-width: 330px; /* Max width of the form */
+        }
+        
+        .upload-container {
+            margin: auto; /* This will center the container in the flex item (body) */
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        
+        .upload-form .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .upload-label {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        
+        .upload-label:hover {
+            background: #0056b3;
+        }
+        
+        .upload-label input[type="file"] {
+            display: none;
+        }
+        
+        .upload-label span {
+            pointer-events: none;
+        }
+
         .video-flex-container {
             display: flex;
             justify-content: center;
@@ -33,6 +86,31 @@
             width: 100%;
             height: auto;
         }
+
+        .form-group {
+            display: flex;
+            justify-content: center; /* Center the form group contents horizontally */
+        }
+        
+        .form-control, .btn {
+            font-size: 1.25rem; /* Increase font size */
+            height: auto;
+            padding: 10px; /* Increase padding */
+        }
+        
+        .btn {
+            width: 100%; /* Make buttons full width of their container */
+            box-sizing: border-box; /* Ensure padding is included in width */
+        }
+        
+        /* Style for the filename text when a file is chosen */
+        .filename-chosen {
+            display: inline-block;
+            margin-top: 0.375rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
     </style>
 </head>
 <body>
