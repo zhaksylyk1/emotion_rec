@@ -111,7 +111,7 @@ def get_test_set(opt, spatial_transform=None, audio_transform=None):
     return test_data
 
 def prediction(root):
-    extract_fa(root)
+    last_time=extract_fa(root)
 
     opt = opts
 
@@ -173,7 +173,7 @@ def prediction(root):
         6: "Disgust", 
         7: "Surprised"
     }
-
+    print(ans_list)
     timepoints=[]
     pred={}
     start=0
@@ -185,7 +185,7 @@ def prediction(root):
             start_frame=i*35+1
             start=round(float((i*35+1)/30))
             
-    timepoints.append((switcher.get(ans_list[-1]),start,round(float(((len(ans_list)-1)*35+1)/30))))
+    timepoints.append((switcher.get(ans_list[-1]),start,last_time))
     pred[start_frame]=switcher.get(ans_list[-1])
     print(pred)
     print(timepoints)

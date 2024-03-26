@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import librosa.display
 from moviepy.editor import VideoFileClip
 from .create_annotations import create_annotations
+import math
 
 device = torch.device('cuda') if torch.cuda.is_available() else 'cpu'
 mtcnn = MTCNN(image_size=(720, 1280), device=device)
@@ -53,11 +54,12 @@ def split_audio(start_frame, fps,root):
         sf.write(audio_path[:-4] +"_"+str(start_frame)+ '_croppad.wav', y_clip, sr)
 
 def extract_fa(root):
+    framen = 0
+    fps=0
     for filename in os.listdir(root):
         if filename.endswith('.mp4'):
             cap = cv2.VideoCapture(os.path.join(root,filename))  
             fps = cap.get(cv2.CAP_PROP_FPS)
-            framen = 0
             while True:
                 i,q = cap.read()
                 if not i:
@@ -112,6 +114,7 @@ def extract_fa(root):
                     
                 split_audio(all_frames_to_select[cri], fps,root)
     create_annotations(root)
+    return math.floor(framen/fps)
                 
                 
 
