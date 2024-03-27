@@ -16,7 +16,7 @@
     </form>
 </div>
 {% else %}
-<h2>Prediction</h2>
+<h2></h2>
     {% for video in videos %}
         <div class="video-flex-container">
             <div class="video-section">
@@ -31,20 +31,21 @@
                 </video>
             </div>
             <div class="controls-section">
-                {% comment %} <h2>{{video.id}}</h2> {% endcomment %}
                 <div class="btn-group"> 
                     <form action="{% url 'delete_video' video.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm btn-custom-size">Delete</button>
                     </form>
                     <form action="{% url 'save_video' video.id %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Save</button>
+                        <button type="submit" class="btn btn-success btn-sm btn-custom-size">Save</button>
                     </form>
                 </div>
                     {% for label, start_time, end_time in time_points %}
                     <a href="#" class="time-link" data-video-id="video_{{ video.id }}" data-start-time="{{ start_time }}" data-end-time="{{ end_time }}">
-                        {{ label }} {{ start_time|stringformat:"02d" }} - {{ end_time|stringformat:"02d" }}</a>
+                        <span class="time-label">{{ label }}</span>
+                        <span class="time-interval">{{ start_time|stringformat:"02d" }} - {{ end_time|stringformat:"02d" }}</span>
+                    </a>
                     {% endfor %}
                 </div>
             </div>   

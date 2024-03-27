@@ -13,6 +13,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 time_points = []
@@ -116,4 +120,36 @@ def save_video(request, video_id):
         video = Video.objects.get(id=video_id)  # Get the video to delete
         add_predictions_to_video(video_path=video.video.path, predictions=pred, output_folder="/Users/alikanafin/Desktop/emotion_recog_1/emotion_rec/myproject/media/output")
         return redirect('video_list')  # Redirect to the video list page
+
     
+def login_or_signup_view(request):
+    form_login = AuthenticationForm()
+    form_signup = RegisterForm()
+    if request.method == 'POST':
+        if 'login_submit' in request.POST:  # If login form is submitted
+            form_login = AuthenticationForm(request, data=request.POST)
+            print("login")
+            if form_login.is_valid():
+                user = authenticate(request, username=form_login.cleaned_data['username'], password=form_login.cleaned_data['password'])
+                if user is not None:
+                    login(request, user)
+                    return redirect('home')  # Redirect to home page after successful login
+        if 'signup_submit' in request.POST:  # If signup form is submitted
+            form_signup = RegisterForm(request.POST)
+            print("signup")
+            if form_signup.is_valid():
+                print("signup valid")
+                user = form_signup.save(commit=False)
+                user.save()
+                login(request, user)
+                return redirect('home')  # Redirect to home page after successful signup
+                
+    return render(request, 'myapp/login.html', {'form_login': form_login, 'form_signup': form_signup})
+
+
+def home(request):
+    # Assuming you have a way to get the current user's name
+    # You can replace "John Doe" with the actual username
+    username = "John Doe"
+    return render(request, 'myapp/home.html', {'username': username})
+

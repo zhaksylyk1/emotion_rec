@@ -22,6 +22,7 @@ class VideoForm(forms.ModelForm):
         fields = ['title', 'video']
 
 
+        
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
