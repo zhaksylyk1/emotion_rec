@@ -6,7 +6,6 @@
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1611_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1611_croppad.wav;1;testing
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_701_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_701_croppad.wav;1;testing
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1541_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1541_croppad.wav;1;testing
-/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/01-01-02-01-02-01-02_1_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/01-01-02-01-02-01-02_1_croppad.wav;1;testing
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1506_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1506_croppad.wav;1;testing
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_981_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_981_croppad.wav;1;testing
 /Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1016_facecroppad.npy;/Users/zhaksylyk/Desktop/sp_last/emotion_rec/myproject/media/videos/efwfw_1016_croppad.wav;1;testing

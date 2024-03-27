@@ -120,13 +120,83 @@
             font-size: 1rem;
             line-height: 1.5;
         }
+
+        .navbar {
+            background: linear-gradient(to right, #808080, #6a0dad); /* Grey to purple gradient */
+        }
+    
+        /* Additional adjustments for fixed navbar and padding as previously discussed */
+        body {
+            padding-top: 70px; /* Adjust based on the actual height of your navbar */
+        }
+        header .navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .custom-btn-small {
+            padding: 10px 20px; /* Smaller padding */
+            font-size: 0.875rem; /* Smaller font size */
+        }
+    
+        /* Ensure consistency in button sizes */
+        .btn-group .btn {
+            width: auto; /* Override if necessary to make buttons the same size */
+            margin: 0 5px; /* Optional: Adds margin between buttons */
+        }
+
+        .btn-custom-size {
+            width: 90px; /* Adjust this width to fit your design */
+            text-align: center; /* Ensure the text is centered */
+        }
+
+        .time-link {
+            display: flex;
+            justify-content: flex-start; /* Align the label to the left and time to the right */
+            width: 100%; /* Make the links full width */
+            padding: 8px 15px; /* Add padding inside the links for a better visual */
+            background-color: #f7f7f7; /* A light background color */
+            margin-bottom: 5px; /* Space between the links */
+            text-decoration: none; /* Remove the underline from the links */
+            border-radius: 4px; /* Rounded corners */ 
+        }
+        
+        .time-label {
+            text-align: left; /* Align the label text to the left */
+            margin-right: 20px; /* Adjust the value as needed */
+        }
+        
+        .time-interval {
+            text-align: right; /* Align the time interval text to the right */
+        }
+    </style>
         
     </style>
 </head>
 <body>
-<div class="container">
-    {% block content %}
-    {% endblock %}
-</div>
+    <header>
+        <!-- Bootstrap Navbar for a responsive header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Emotion recognition</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <!-- Additional nav items here -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

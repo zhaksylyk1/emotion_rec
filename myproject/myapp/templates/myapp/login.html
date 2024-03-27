@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 <body>
@@ -34,38 +34,67 @@
             </div>
         </div> -->
         <div class="mp">
+            <div>
+            </div>
             <div class="Auth">
                 <h1>Emotion Recognition</h1>
                 <button class="btn" onclick="showModal('loginModal')">Log in</button> 
-                <button class="btn" onclick="showModal('signupModal')"> Sign in</button>
+                <button class="btn" onclick="showModal('signupModal')"> Sign Up</button>
             </div>
         </div>
 
         <!-- Login Modal -->
-        <div id="loginModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close" onclick="hideModal('loginModal')">&times;</span>
-                <h2 class="ls-title">Login</h2>
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button class="btn-rev">Submit</button>
-                <!-- Login form -->
+        
+        {%block content %}
+
+        <form method = "POST" action ="" name="signup"> 
+            {% csrf_token %}
+            <div id="signupModal" class="modal hidden">
+                <div class="modal-content">     
+                    <span class="close" onclick="hideModal('signupModal')">&times;</span>
+                    <h2 class="ls-title">Sign Up</h2>
+                    <input type="text" name="username" placeholder="Enter Username">
+                    <input type="email" name="email" placeholder="Enter Email">
+                    <input type="password" name="password1" placeholder="Enter Password with at least 8 characters and 1 letter">
+                    <input type="password" name="password2" placeholder="Confirm Password">
+                    <button type="submit" class="btn-rev" name ="signup_submit">Sign Up</button>
+                    <!-- Sign-up form -->
+                </div>
             </div>
-        </div>
+        </form>
+
+
+        <form method = "POST" action ="", name="login"> 
+            {% csrf_token %}
+            <div id="loginModal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close" onclick="hideModal('loginModal')">&times;</span>
+                    <h2 class="ls-title">Login</h2>
+                    <input type="text" name="username" placeholder="Enter Username">
+                    <input type="password" name="password" placeholder="Enter Password">
+                    <button type="submit" class="btn-rev" name ="login_submit">Login</button>
+               
+              
+                </div>
+            </div>      <!-- Login form -->
+        </form>
+
+                
+            
+        
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
 
         <!-- Sign Up Modal -->
-        <div id="signupModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close" onclick="hideModal('signupModal')">&times;</span>
-                <h2 class="ls-title">Sign Up</h2>
-                <input type="text" placeholder="Username">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button class="btn-rev">Register</button>
-                <!-- Sign-up form -->
-            </div>
-        </div>
+       
+        
 
+        {%endblock content %}
         <div class="front-layer">
             <img src="https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/47054/article_full%401x.jpg" data-speed="4"/>
             <img src="https://faithinrecovery.com/wp-content/uploads/2018/02/anger.jpg" data-speed="4"/>

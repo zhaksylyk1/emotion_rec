@@ -2,6 +2,10 @@ from django.db import models
 from .multimodal.prediction import prediction
 # Create your models here.
 from django.db import models
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class Video(models.Model):
     title = models.CharField(max_length=100)
@@ -19,3 +23,10 @@ class Video(models.Model):
         super().delete(*args, **kwargs)
         # Delete the file after the model
         storage.delete(path)
+        
+        
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
