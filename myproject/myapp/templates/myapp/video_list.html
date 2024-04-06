@@ -29,6 +29,7 @@
                         <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
                 </video>
+                <div class="emotion-label">Emotion: <span id="currentEmotion">None</span></div>
             </div>
             <div class="controls-section">
                 <div class="btn-group"> 
@@ -99,4 +100,37 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Function to update the emotion label
+        function updateEmotionLabel(videoCurrentTime) {
+            // Assume 'timePoints' is an array of objects with each containing 'label', 'start_time', and 'end_time'
+            // This should be replaced with your actual method of storing and accessing these time points
+            const timePoints = [...document.querySelectorAll('.time-link')].map(link => ({
+                label: link.querySelector('.time-label').textContent,
+                startTime: parseFloat(link.getAttribute('data-start-time')),
+                endTime: parseFloat(link.getAttribute('data-end-time'))
+            }));
+    
+            // Find the current time point
+            const currentTimePoint = timePoints.find(point => videoCurrentTime >= point.startTime && videoCurrentTime <= point.endTime);
+            
+            // Update the label if a matching time point is found
+            if (currentTimePoint) {
+                document.getElementById('currentEmotion').textContent = currentTimePoint.label;
+            } else {
+                document.getElementById('currentEmotion').textContent = 'None';
+            }
+        }
+    
+        // Get all video elements
+        const videos = document.querySelectorAll('.video-js');
+        
+        // Add 'timeupdate' event listener to each video
+        videos.forEach(video => {
+            video.addEventListener('timeupdate', () => updateEmotionLabel(video.currentTime));
+        });
+    });
+</script>    
 {% endblock %}
