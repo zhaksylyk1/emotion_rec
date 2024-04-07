@@ -9,9 +9,14 @@
         {% csrf_token %}
         {{ form.as_p }}
         <label for="video" class="upload-label btn btn-primary">
-            <span id="file-chosen">Choose a file</span>
+            <span id="file-chosen">Choose a .mp4 file</span>
             {{ form.video }}
         </label>
+        {% comment %} <br>
+        <label for="audio" class="upload-label btn btn-secondary">
+            <span id="audio-file-chosen">Choose .wav file</span>
+            <input type="file" id="audio" name="audio" accept=".wav">
+        </label> {% endcomment %}
         <button type="submit" class="btn btn-primary btn-upload">Upload</button>
     </form>
 </div>
