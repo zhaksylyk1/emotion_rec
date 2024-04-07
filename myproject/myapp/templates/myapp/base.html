@@ -155,7 +155,7 @@
         .time-link {
             display: flex;
             justify-content: flex-start; /* Align the label to the left and time to the right */
-            width: 100%; /* Make the links full width */
+            width: 80%; /* Make the links full width */
             padding: 8px 15px; /* Add padding inside the links for a better visual */
             background-color: #f7f7f7; /* A light background color */
             margin-bottom: 5px; /* Space between the links */
@@ -164,20 +164,19 @@
         }
         
         .time-label {
+            flex-grow: 1;
             text-align: left; /* Align the label text to the left */
-            margin-right: 20px; /* Adjust the value as needed */
         }
         
         .time-interval {
-            text-align: right; /* Align the time interval text to the right */
+            margin-left: auto; /* Align the time to the right */
         }
 
         .time-links-container {
-            margin: 20px;
+            margin: 10px;
             width: 250px;
             max-height: 500px; /* Adjust based on your needs */
             overflow-y: auto;
-            {% comment %} border: 1px solid #ccc; /* Optional, for visual delineation */ {% endcomment %}
             padding: 10px;
         }
 
