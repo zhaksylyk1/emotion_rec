@@ -1,0 +1,28 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+
+{% if not videos_exist %}
+<div class="upload-container">
+    <p>No videos found. Upload some!</p>
+</div>
+{% else %}
+<div class="video-flex-container">
+    {% for video in videos %}
+        <div class="video-section">
+            <video id="video_{{ forloop.counter }}" class="video-js" controls="controls" preload="auto" max-width="960" max-height="640" data-setup="{}">
+                <source src="{{ video.url }}" type="video/mp4">
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+            </video>
+            <div class="video-info">
+                <span>Video: {{ video.name }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

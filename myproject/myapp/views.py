@@ -18,6 +18,9 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import MediaFileForm
+from django.http import JsonResponse
+from django.http import HttpResponse
+from django.conf import settings
 
 time_points = []
 pred ={}
@@ -126,7 +129,7 @@ def upload_media_files(request):
         form = MediaFileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('upload_media_files')  # Redirect to the same view to display the uploaded files or another success page
+            return redirect('latest_media')  # Redirect to the same view to display the uploaded files or another success page
     else:
         form = MediaFileForm()
     return render(request, 'myapp/video_audio_eeg.html', {'form': form})
@@ -162,4 +165,36 @@ def home(request):
     # You can replace "John Doe" with the actual username
     username = "John Doe"
     return render(request, 'myapp/home.html', {'username': username})
+
+# def latest_media(request):
+#     video_directory = os.path.join(settings.MEDIA_ROOT, 'videos')
+#     videos = [os.path.join(video_directory, f) for f in os.listdir(video_directory) if f.endswith('.mp4')]
+#     if not videos:
+#         return HttpResponse('No video files found.', status=404)
+    
+#     latest_video = max(videos, key=os.path.getmtime)  # Get the latest video by modification time
+#     video_url = os.path.join(settings.MEDIA_URL, 'videos', os.path.basename(latest_video))
+    
+#     return HttpResponse(f'<video controls><source src="{video_url}" type="video/mp4">Your browser does not support the video tag.</video>')
+
+def latest_media(request):
+    media_dir = 'media/videos'  # Set the directory where video files are stored
+    videos = []
+    try:
+        # List all files in the media directory
+        for filename in os.listdir(media_dir):
+            if filename.endswith('.mp4'):  # Assuming we are only interested in mp4 files
+                videos.append({
+                    'url': f'/{media_dir}/{filename}',
+                    'name': filename
+                })
+    except FileNotFoundError:
+        videos = []  # No videos found or directory doesn't exist
+
+    context = {
+        'videos': videos,
+        'videos_exist': len(videos) > 0
+    }
+    return render(request, 'myapp/eeg_pred.html', context)
+
 

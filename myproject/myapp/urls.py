@@ -9,5 +9,6 @@ urlpatterns = [
     path('upload/', views.video_list, name='video_list'),  # For listing videos
     path('delete/<int:video_id>/', views.delete_video, name='delete_video'),
     path('save/<int:video_id>/', views.save_video, name='save_video'),
-    path('upload2/', views.upload_media_files, name='video_audio_eeg')
+    path('upload2/', views.upload_media_files, name='video_audio_eeg'),
+    path('av_eeg/', views.latest_media, name='latest_media'),
 ]
