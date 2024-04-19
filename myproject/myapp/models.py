@@ -23,3 +23,8 @@ class Video(models.Model):
         super().delete(*args, **kwargs)
         # Delete the file after the model
         storage.delete(path)
+
+class MediaFile(models.Model):
+    video = models.FileField(upload_to='videos/')
+    audio = models.FileField(upload_to='audios/', null=True, blank=True)
+    eeg = models.FileField(upload_to='eeg/', null=True, blank=True)

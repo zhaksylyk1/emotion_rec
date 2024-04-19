@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
+from .forms import MediaFileForm
 
 time_points = []
 pred ={}
@@ -120,6 +120,16 @@ def save_video(request, video_id):
         video = Video.objects.get(id=video_id)  # Get the video to delete
         add_predictions_to_video(video_path=video.video.path, predictions=pred, output_folder="/Users/alikanafin/Desktop/emotion_recog_1/emotion_rec/myproject/media/output")
         return redirect('video_list')  # Redirect to the video list page
+
+def upload_media_files(request):
+    if request.method == 'POST':
+        form = MediaFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('upload_media_files')  # Redirect to the same view to display the uploaded files or another success page
+    else:
+        form = MediaFileForm()
+    return render(request, 'myapp/video_audio_eeg.html', {'form': form})
 
     
 def login_or_signup_view(request):
